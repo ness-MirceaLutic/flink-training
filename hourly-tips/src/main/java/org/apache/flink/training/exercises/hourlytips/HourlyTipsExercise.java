@@ -115,10 +115,7 @@ public class HourlyTipsExercise {
             for (TaxiFare f : faresInWindow)
                 sumOfTips += f.tip;
 
-            Tuple3<Long, Long, Float> rec = Tuple3.of   ( context.window().getEnd()
-                                                        , driverId
-                                                        , sumOfTips
-                                                        );
+            Tuple3<Long, Long, Float> rec = Tuple3.of(context.window().getEnd(), driverId, sumOfTips);
             out.collect(rec);
         }
     }
