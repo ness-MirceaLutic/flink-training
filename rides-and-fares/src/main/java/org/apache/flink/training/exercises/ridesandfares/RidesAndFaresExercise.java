@@ -33,8 +33,6 @@ import org.apache.flink.training.exercises.common.datatypes.TaxiFare;
 import org.apache.flink.training.exercises.common.datatypes.TaxiRide;
 import org.apache.flink.training.exercises.common.sources.TaxiFareGenerator;
 import org.apache.flink.training.exercises.common.sources.TaxiRideGenerator;
-import org.apache.flink.training.exercises.common.utils.MissingSolutionException;
-import org.apache.flink.training.solutions.ridesandfares.RidesAndFaresSolution;
 import org.apache.flink.util.Collector;
 
 /**
@@ -77,7 +75,7 @@ public class RidesAndFaresExercise {
         DataStream<TaxiFare> fares = env.addSource(fareSource).keyBy(fare -> fare.rideId);
 
         // Create the pipeline.
-        rides   .connect(fares)
+        rides.connect(fares)
                 .flatMap(new EnrichmentFunction())
                 .addSink(sink)
                 ;
@@ -104,8 +102,8 @@ public class RidesAndFaresExercise {
 
     public static class EnrichmentFunction
             extends RichCoFlatMapFunction<TaxiRide, TaxiFare, RideAndFare> {
-        private ValueState<TaxiRide> rideState;
-        private ValueState<TaxiFare> fareState;
+        private transient ValueState<TaxiRide> rideState;
+        private transient ValueState<TaxiFare> fareState;
 
         @Override
         public void open(Configuration config) throws Exception {

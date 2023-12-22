@@ -45,7 +45,7 @@ import java.time.Duration;
  * <p>You should eventually clear any state you create.
  */
 public class LongRidesExercise {
-    private final Duration maxWaitForLateNotifications = Duration.ofSeconds(60);
+    private final transient Duration maxWaitForLateNotifications = Duration.ofSeconds(60);
     private final SourceFunction<TaxiRide> source;
     private final SinkFunction<Long> sink;
 
@@ -87,7 +87,7 @@ public class LongRidesExercise {
         DataStream<TaxiRide> rides = env.addSource(source).assignTimestampsAndWatermarks(watermarkStrategy);
 
         // the pipeline
-        rides   .keyBy(ride -> ride.rideId)
+        rides.keyBy(ride -> ride.rideId)
                 .process(new AlertFunction())
                 .addSink(sink);
 
