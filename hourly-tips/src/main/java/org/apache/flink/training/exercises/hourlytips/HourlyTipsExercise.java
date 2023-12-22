@@ -32,12 +32,8 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.training.exercises.common.datatypes.TaxiFare;
 import org.apache.flink.training.exercises.common.sources.TaxiFareGenerator;
-import org.apache.flink.training.exercises.common.utils.MissingSolutionException;
-import org.apache.flink.training.solutions.hourlytips.HourlyTipsSolution;
 import org.apache.flink.util.Collector;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The Hourly Tips exercise from the Flink training.
